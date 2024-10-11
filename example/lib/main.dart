@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       //TODO ローカライズ設定必要
       localizationsDelegates: const [
-        // Add the localization delegate of your package
+        // TODO ローカライズ設定必要
         ReviewRequestLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
@@ -46,6 +46,18 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+  @override
+  void initState() {
+    super.initState();
+    showReviewRequestDialogInAppLaunch(
+      context: context,
+      iOSAppStoreId: "6730112960",
+      //isIncrement: false,
+      //launchCountIntervals: 5
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,16 +66,18 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Container(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => showReviewRequestDialog(
-          context: context,
-          iOSAppStoreId: "6730112960",
-          //isIncrement: false,
-          //launchCountIntervals: 5
-        ),
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () => showReviewRequestDialogInAppLaunch(
+      //     context: context,
+      //     iOSAppStoreId: "6730112960",
+      //     //isIncrement: false,
+      //     //launchCountIntervals: 5
+      //   ),
+      //   tooltip: 'Increment',
+      //   child: const Icon(Icons.add),
+      // ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
+
+
 }
