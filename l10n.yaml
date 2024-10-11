@@ -1,0 +1,14 @@
+# This is the home of your localization files.
+arb-dir: lib/l10n
+# The name of the file where you define your translatable strings
+template-arb-file: intl_en.arb
+# Your generated code will be placed to this directory
+output-dir: lib/l10n/generated
+# The name of the generated class
+output-class: ReviewRequestLocalizations
+# The file name for the generated code
+output-localization-file: review_request_localizations.dart
+# This tells Flutter where it should generate the code.
+synthetic-package: false
+# This tells the code generator to create nullable getters for our strings or not.
+nullable-getter: false
