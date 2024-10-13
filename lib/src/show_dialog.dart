@@ -45,7 +45,7 @@ Future<void> showReviewRequestLaunchCountAutoIncrement({
   String? customDesc,
   bool noMoreDisplayEnabled = true,
 }) async {
-  showReviewRequestDialogInAppLaunch(
+  await showReviewRequestDialogInAppLaunch(
     launchCountIntervals: launchCountIntervals,
     context: context,
     iOSAppStoreId: iOSAppStoreId,
@@ -53,7 +53,7 @@ Future<void> showReviewRequestLaunchCountAutoIncrement({
     backgroundColor: backgroundColor,
     customTitle: customTitle,
     customDesc: customDesc,
-    noMoreDisplayEnabled: noMoreDisplayEnabled.
+    noMoreDisplayEnabled: noMoreDisplayEnabled,
   );
 }
 
