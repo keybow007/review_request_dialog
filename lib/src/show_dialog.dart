@@ -35,6 +35,28 @@ Future<int> getLaunchCount() async {
   return await LaunchCountRepository.getLaunchCount();
 }
 
+Future<void> showReviewRequestLaunchCountAutoIncrement({
+  int launchCountIntervals = 7,
+  required BuildContext context,
+  required String iOSAppStoreId,
+  bool isIncrement = true,
+  Color? backgroundColor,
+  String? customTitle,
+  String? customDesc,
+  bool noMoreDisplayEnabled = true,
+}) async {
+  showReviewRequestDialogInAppLaunch(
+    launchCountIntervals: launchCountIntervals,
+    context: context,
+    iOSAppStoreId: iOSAppStoreId,
+    isIncrement: isIncrement,
+    backgroundColor: backgroundColor,
+    customTitle: customTitle,
+    customDesc: customDesc,
+    noMoreDisplayEnabled: noMoreDisplayEnabled.
+  );
+}
+
 //When displaying a dialog on app launch (automatically calculating the number of app launches)
 Future<void> showReviewRequestDialogInAppLaunch({
   int launchCountIntervals = 7,
@@ -60,11 +82,10 @@ Future<void> showReviewRequestDialogInAppLaunch({
           isIncrement, launchCountIntervals, launchCountAfterChange)) return;
 
   ReviewRequestDialog.show(
-    context: context,
-    backgroundColor: backgroundColor,
-    iOSAppStoreId: iOSAppStoreId,
-    noMoreDisplayEnabled: noMoreDisplayEnabled
-  );
+      context: context,
+      backgroundColor: backgroundColor,
+      iOSAppStoreId: iOSAppStoreId,
+      noMoreDisplayEnabled: noMoreDisplayEnabled);
 }
 
 bool _isDialogDisplay(
