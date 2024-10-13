@@ -11,6 +11,7 @@ library review_request_dialog;
 
 export 'src/show_dialog.dart';
 export 'l10n/generated/review_request_localizations.dart';
+export 'src/review_dialog.dart';
 
 
 
