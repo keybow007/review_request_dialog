@@ -4,6 +4,7 @@ class LaunchCountRepository {
   static const String keyLaunchCount = "launch_count";
   static const String keyNoMoreDisplay = "no_more_display";
 
+
   static Future<int> getLaunchCount() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getInt(keyLaunchCount) ?? 0;
@@ -20,9 +21,9 @@ class LaunchCountRepository {
     return prefs.getBool(keyNoMoreDisplay) ?? false;
   }
 
-  static Future<void> setNoMoreDisplay() async {
+  static Future<void> setNoMoreDisplay(bool isChecked) async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.setBool(keyNoMoreDisplay, true);
+    prefs.setBool(keyNoMoreDisplay, isChecked);
   }
 
 }

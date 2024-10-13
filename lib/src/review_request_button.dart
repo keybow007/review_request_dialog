@@ -34,7 +34,8 @@ class ReviewRequestButton extends StatelessWidget {
     final InAppReview inAppReview = InAppReview.instance;
     if (await inAppReview.isAvailable()) {
       if (Platform.isIOS) {
-        //IphoneだけストアのID必要,AppStoreConnectの一般ーアプリ情報ーAppleIdからコピペ
+        //Iphone only requires store ID
+        //- Copy and paste from General - App Information - AppleId in AppStoreConnect
         inAppReview.openStoreListing(appStoreId: iOSAppStoreId);
       } else {
         inAppReview.openStoreListing();

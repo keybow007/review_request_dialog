@@ -5,19 +5,18 @@ import 'launch_count_repository.dart';
 
 //任意のタイミングで出す場合（アプリ起動回数は手動で計算）
 Future<void> showReviewRequestDialogWithLaunchCount({
-  int launchCountIntervals = 5,
+  int launchCountIntervals = 7,
   required BuildContext context,
   required String iOSAppStoreId,
   required int launchCount,
-  bool isIncrement = false,
+  bool isIncrement = true,
   Color? backgroundColor,
   String? customTitle,
   String? customDesc,
 }) async {
   final isNoMoreDisplay = await LaunchCountRepository.isNoMoreDisplay();
   if (isNoMoreDisplay ||
-      !_isDialogDisplay(
-          isIncrement, launchCountIntervals, launchCount)) return;
+      !_isDialogDisplay(isIncrement, launchCountIntervals, launchCount)) return;
   ReviewDialog.show(
     context: context,
     backgroundColor: backgroundColor,
@@ -36,10 +35,10 @@ Future<int> getLaunchCount() async {
 
 //アプリ起動時に出す場合（アプリ起動回数を自動計算）
 Future<void> showReviewRequestDialogInAppLaunch({
-  int launchCountIntervals = 5,
+  int launchCountIntervals = 7,
   required BuildContext context,
   required String iOSAppStoreId,
-  bool isIncrement = false,
+  bool isIncrement = true,
   Color? backgroundColor,
   String? customTitle,
   String? customDesc,
@@ -47,9 +46,11 @@ Future<void> showReviewRequestDialogInAppLaunch({
   final launchCountBeforeChange = await LaunchCountRepository.getLaunchCount();
   int launchCountAfterChange =
       await LaunchCountRepository.setLaunchCount(launchCountBeforeChange + 1);
-  print("launchCountAfterChange: $launchCountAfterChange");
 
   final isNoMoreDisplay = await LaunchCountRepository.isNoMoreDisplay();
+
+  print(
+      "launchCountAfterChange: $launchCountAfterChange/ isNoMoreDisplay: $isNoMoreDisplay");
 
   if (isNoMoreDisplay ||
       !_isDialogDisplay(
@@ -68,7 +69,10 @@ bool _isDialogDisplay(
     return launchCountAfterChange % launchCountIntervals == 0;
   }
 
-  final sequences = _createInfiniteSequences(launchCountIntervals).toList();
+  final sequences = _createSequences(
+          launchCountIntervals: launchCountIntervals,
+          launchCount: launchCountAfterChange)
+      .toList();
   print("sequences: $sequences");
   return sequences.contains(launchCountAfterChange);
 }
@@ -79,11 +83,17 @@ bool _isDialogDisplay(
 *
 * ・Synchronous generator: Returns an Iterable object.
 * ・Asynchronous generator: Returns a Stream object.
+*   => 無限数列にしたら「Out of Memory」してしまうので、
+*      launchCountAfterChangeを使って有限数列にする必要あり
 * */
-Iterable<int> _createInfiniteSequences(int launchCountIntervals) sync* {
+Iterable<int> _createSequences(
+    {required int launchCountIntervals, required int launchCount}) sync* {
   int i = 0;
   int holdValue = 0;
-  while (true) {
+
+  //無限数列にしたら「Out of Memory」してしまうので、launchCountAfterChangeを使って有限数列にする必要あり
+  //while (true) {
+  while (holdValue < launchCount) {
     /*
     * 等差数列的に増分させるか？(isIncrement）
     * launchCountIntervals = 5の場合

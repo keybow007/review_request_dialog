@@ -16,6 +16,8 @@ class ReviewDialog {
     String? customTitle,
     String? customDesc,
   }) async {
+    bool isNoMoreDisplayChecked = false;
+
     AwesomeDialog(
       context: context,
       dismissOnBackKeyPress: false,
@@ -34,9 +36,7 @@ class ReviewDialog {
               minFontSize: 10,
             ),
           ),
-
           FiveStarRow(),
-
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
@@ -61,19 +61,30 @@ class ReviewDialog {
               ),
             ),
           ),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () async {
-                //二度と表示しないまたは、応援するボタンを押したときに二度と表示しないようにするボタン
-                await LaunchCountRepository.setNoMoreDisplay();
-                Navigator.pop(context);
-              },
-              child: Text(
-                ReviewRequestLocalizations.of(context).noMoreDisplay,
-              ),
-            ),
-          ), //次回以降表示しない
+          StatefulBuilder(
+            builder: (context, setState) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                child: CheckboxListTile(
+                  controlAffinity: ListTileControlAffinity.leading,
+                  title: Text(
+                    ReviewRequestLocalizations.of(context).noMoreDisplay,
+                    style: TextStyles.dialogDesc,
+                  ),
+                  value: isNoMoreDisplayChecked,
+                  onChanged: (bool? isChecked) async {
+                    await LaunchCountRepository.setNoMoreDisplay(
+                        isChecked ?? false);
+                    setState(
+                      () {
+                        isNoMoreDisplayChecked = isChecked ?? false;
+                      },
+                    );
+                  },
+                ),
+              );
+            },
+          ),
         ],
       ),
     )..show();
