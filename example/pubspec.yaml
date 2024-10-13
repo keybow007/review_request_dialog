@@ -30,7 +30,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  #TODO ローカライズ設定必要
+  #TODO Localization settings required
   flutter_localizations:
     sdk: flutter
   intl: any

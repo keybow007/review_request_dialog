@@ -3,7 +3,7 @@ import 'package:review_request_dialog/src/review_dialog.dart';
 
 import 'launch_count_repository.dart';
 
-//任意のタイミングで出す場合（アプリ起動回数は手動で計算）
+//For manually triggered dialogs (app launch count is calculated manually)
 Future<void> showReviewRequestDialogWithLaunchCount({
   int launchCountIntervals = 7,
   required BuildContext context,
@@ -24,7 +24,7 @@ Future<void> showReviewRequestDialogWithLaunchCount({
   );
 }
 
-//アプリ起動回数をこのパッケージで管理したい場合
+//In the case of wanting to manage the app launch count within this package
 Future<void> setLaunchCount(int launchCount) async {
   await LaunchCountRepository.setLaunchCount(launchCount);
 }
@@ -33,7 +33,7 @@ Future<int> getLaunchCount() async {
   return await LaunchCountRepository.getLaunchCount();
 }
 
-//アプリ起動時に出す場合（アプリ起動回数を自動計算）
+//When displaying a dialog on app launch (automatically calculating the number of app launches)
 Future<void> showReviewRequestDialogInAppLaunch({
   int launchCountIntervals = 7,
   required BuildContext context,
@@ -78,27 +78,26 @@ bool _isDialogDisplay(
 }
 
 /*
-* Generatorで無限数列作成
+* Infinite Sequence Creation with Generator
 * https://dart.dev/language/functions#generators
 *
 * ・Synchronous generator: Returns an Iterable object.
 * ・Asynchronous generator: Returns a Stream object.
-*   => 無限数列にしたら「Out of Memory」してしまうので、
-*      launchCountAfterChangeを使って有限数列にする必要あり
+*   => If you make it an infinite number sequence,
+*      it will be “Out of Memory”, so you need to use launchCountAfterChange
+*      to make it a finite number sequence.
 * */
 Iterable<int> _createSequences(
     {required int launchCountIntervals, required int launchCount}) sync* {
   int i = 0;
   int holdValue = 0;
 
-  //無限数列にしたら「Out of Memory」してしまうので、launchCountAfterChangeを使って有限数列にする必要あり
-  //while (true) {
   while (holdValue < launchCount) {
     /*
-    * 等差数列的に増分させるか？(isIncrement）
-    * launchCountIntervals = 5の場合
-    * １回目：5，２回目：10（5+5*1）、3回目：20（10+5*2）、4回目：35（20+5*3）、
-    * 以降は前回＋5*3足していく
+    * Isometrically incremental?(isIncrement）
+    * if launchCountIntervals = 5
+    * #１：5，#2：10（5+5*1）、#3：20（10+5*2）、#4：35（20+5*3）、
+    * Thereafter, add +5*3 to the previous +5*3
     * */
     final incrementValue =
         (i <= 3) ? i * launchCountIntervals : 3 * launchCountIntervals;

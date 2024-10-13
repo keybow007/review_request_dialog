@@ -13,15 +13,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      //TODO ローカライズ設定必要
+      //TODO Localization settings required
       localizationsDelegates: const [
-        // TODO ローカライズ設定必要
+        // TODO Localization settings required
         ReviewRequestLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
-      //TODO ローカライズ設定必要
+      //TODO Localization settings required
       supportedLocales: const [
         Locale('en'),
         Locale('ja'),
