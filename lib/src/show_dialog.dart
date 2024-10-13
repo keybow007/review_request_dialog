@@ -18,7 +18,7 @@ Future<void> showReviewRequestDialogWithLaunchCount({
   final isNoMoreDisplay = await LaunchCountRepository.isNoMoreDisplay();
   if (isNoMoreDisplay ||
       !_isDialogDisplay(isIncrement, launchCountIntervals, launchCount)) return;
-  ReviewDialog.show(
+  ReviewRequestDialog.show(
     context: context,
     backgroundColor: backgroundColor,
     iOSAppStoreId: iOSAppStoreId,
@@ -59,7 +59,7 @@ Future<void> showReviewRequestDialogInAppLaunch({
       !_isDialogDisplay(
           isIncrement, launchCountIntervals, launchCountAfterChange)) return;
 
-  ReviewDialog.show(
+  ReviewRequestDialog.show(
     context: context,
     backgroundColor: backgroundColor,
     iOSAppStoreId: iOSAppStoreId,

@@ -8,7 +8,7 @@ import 'package:review_request_dialog/src/styles.dart';
 
 import '../l10n/generated/review_request_localizations.dart';
 
-class ReviewDialog {
+class ReviewRequestDialog {
   static Future<void> show({
     required BuildContext context,
     required String iOSAppStoreId,
