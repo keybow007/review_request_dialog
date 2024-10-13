@@ -6,7 +6,10 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
 import 'review_request_localizations_en.dart';
+import 'review_request_localizations_es.dart';
 import 'review_request_localizations_ja.dart';
+import 'review_request_localizations_ko.dart';
+import 'review_request_localizations_zh.dart';
 
 // ignore_for_file: type=lint
 
@@ -92,7 +95,12 @@ abstract class ReviewRequestLocalizations {
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
     Locale('en'),
-    Locale('ja')
+    Locale('es'),
+    Locale('ja'),
+    Locale('ko'),
+    Locale('zh'),
+    Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans'),
+    Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant')
   ];
 
   /// No description provided for @title.
@@ -135,7 +143,7 @@ class _ReviewRequestLocalizationsDelegate extends LocalizationsDelegate<ReviewRe
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['en', 'ja'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>['en', 'es', 'ja', 'ko', 'zh'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_ReviewRequestLocalizationsDelegate old) => false;
@@ -143,11 +151,24 @@ class _ReviewRequestLocalizationsDelegate extends LocalizationsDelegate<ReviewRe
 
 ReviewRequestLocalizations lookupReviewRequestLocalizations(Locale locale) {
 
+  // Lookup logic when language+script codes are specified.
+  switch (locale.languageCode) {
+    case 'zh': {
+  switch (locale.scriptCode) {
+    case 'Hans': return ReviewRequestLocalizationsZhHans();
+case 'Hant': return ReviewRequestLocalizationsZhHant();
+   }
+  break;
+   }
+  }
 
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
     case 'en': return ReviewRequestLocalizationsEn();
+    case 'es': return ReviewRequestLocalizationsEs();
     case 'ja': return ReviewRequestLocalizationsJa();
+    case 'ko': return ReviewRequestLocalizationsKo();
+    case 'zh': return ReviewRequestLocalizationsZh();
   }
 
   throw FlutterError(
