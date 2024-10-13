@@ -13,6 +13,7 @@ Future<void> showReviewRequestDialogWithLaunchCount({
   Color? backgroundColor,
   String? customTitle,
   String? customDesc,
+  bool noMoreDisplayEnabled = true,
 }) async {
   final isNoMoreDisplay = await LaunchCountRepository.isNoMoreDisplay();
   if (isNoMoreDisplay ||
@@ -21,6 +22,7 @@ Future<void> showReviewRequestDialogWithLaunchCount({
     context: context,
     backgroundColor: backgroundColor,
     iOSAppStoreId: iOSAppStoreId,
+    noMoreDisplayEnabled: noMoreDisplayEnabled,
   );
 }
 
@@ -42,6 +44,7 @@ Future<void> showReviewRequestDialogInAppLaunch({
   Color? backgroundColor,
   String? customTitle,
   String? customDesc,
+  bool noMoreDisplayEnabled = true,
 }) async {
   final launchCountBeforeChange = await LaunchCountRepository.getLaunchCount();
   int launchCountAfterChange =
@@ -60,6 +63,7 @@ Future<void> showReviewRequestDialogInAppLaunch({
     context: context,
     backgroundColor: backgroundColor,
     iOSAppStoreId: iOSAppStoreId,
+    noMoreDisplayEnabled: noMoreDisplayEnabled
   );
 }
 

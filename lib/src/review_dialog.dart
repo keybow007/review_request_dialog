@@ -15,6 +15,7 @@ class ReviewDialog {
     Color? backgroundColor,
     String? customTitle,
     String? customDesc,
+    bool noMoreDisplayEnabled = true,
   }) async {
     bool isNoMoreDisplayChecked = false;
 
@@ -61,30 +62,31 @@ class ReviewDialog {
               ),
             ),
           ),
-          StatefulBuilder(
-            builder: (context, setState) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                child: CheckboxListTile(
-                  controlAffinity: ListTileControlAffinity.leading,
-                  title: Text(
-                    ReviewRequestLocalizations.of(context).noMoreDisplay,
-                    style: TextStyles.dialogDesc,
+          if (noMoreDisplayEnabled)
+            StatefulBuilder(
+              builder: (context, setState) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                  child: CheckboxListTile(
+                    controlAffinity: ListTileControlAffinity.leading,
+                    title: Text(
+                      ReviewRequestLocalizations.of(context).noMoreDisplay,
+                      style: TextStyles.dialogDesc,
+                    ),
+                    value: isNoMoreDisplayChecked,
+                    onChanged: (bool? isChecked) async {
+                      await LaunchCountRepository.setNoMoreDisplay(
+                          isChecked ?? false);
+                      setState(
+                        () {
+                          isNoMoreDisplayChecked = isChecked ?? false;
+                        },
+                      );
+                    },
                   ),
-                  value: isNoMoreDisplayChecked,
-                  onChanged: (bool? isChecked) async {
-                    await LaunchCountRepository.setNoMoreDisplay(
-                        isChecked ?? false);
-                    setState(
-                      () {
-                        isNoMoreDisplayChecked = isChecked ?? false;
-                      },
-                    );
-                  },
-                ),
-              );
-            },
-          ),
+                );
+              },
+            ),
         ],
       ),
     )..show();
