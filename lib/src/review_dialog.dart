@@ -54,6 +54,13 @@ class ReviewRequestDialog {
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.transparent,
+                side: BorderSide(
+                  width: 1.0,
+                  color: Theme.of(context).dividerColor,
+                ),
+              ),
               onPressed: () {
                 Navigator.pop(context);
               },

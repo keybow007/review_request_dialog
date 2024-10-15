@@ -53,8 +53,8 @@ class _MyHomePageState extends State<MyHomePage> {
     showReviewRequestDialogInAppLaunch(
       context: context,
       iOSAppStoreId: "6730112960",
-      //isIncrement: true,
-      //launchCountIntervals: 5
+      isIncrement: false,
+      launchCountIntervals: 5,
       noMoreDisplayEnabled: false,
     );
 
