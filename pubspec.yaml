@@ -16,7 +16,7 @@ dependencies:
   intl: any
 
   awesome_dialog: ^3.2.1
-  shared_preferences: ^2.3.1
+  shared_preferences: "2.2.3"
   auto_size_text: ^3.0.0
   animate_do: ^3.3.4
   in_app_review: ^2.0.9
